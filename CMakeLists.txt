@@ -7,6 +7,17 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(RAYLIB REQUIRED raylib)
 
 add_executable(raylib_project
-        src/main.c)
-target_include_directories(raylib_project PRIVATE ${RAYLIB_INCLUDE_DIRS})
+        src/main.c
+        src/rktest.c
+)
+
+target_include_directories(raylib_project PRIVATE ${RAYLIB_INCLUDE_DIRS}, lib)
 target_link_libraries(raylib_project ${RAYLIB_LIBRARIES})
+target_link_libraries(
+        inih
+        flecs
+)
+
+if(DEFINED TEST)
+    add_compile_definitions(TEST)
+endif()
